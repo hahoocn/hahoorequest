@@ -6,7 +6,8 @@ export function makeOptions(url, options) {
     body: undefined,
     headers: undefined,
     type: 'json',
-    credentials: undefined
+    credentials: undefined,
+    mode: undefined
   };
 
   let thisoptions = {};
