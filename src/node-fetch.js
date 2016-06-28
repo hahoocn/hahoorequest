@@ -1,7 +1,7 @@
-import 'whatwg-fetch';
+import fetch from 'node-fetch';
 import { makeOptions, addQs, checkStatus } from './utils';
 
-function hahooRequestWhatwgFetch(url, options) {
+function hahooRequestNodeFetch(url, options) {
   const opts = makeOptions(url, options);
   const { method, credentials, qs, mode, type } = opts;
   let { body, headers } = opts;
@@ -79,4 +79,4 @@ function hahooRequestWhatwgFetch(url, options) {
   });
 }
 
-export default hahooRequestWhatwgFetch;
+export default hahooRequestNodeFetch;
