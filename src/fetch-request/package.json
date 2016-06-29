@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "name": "fetch-request",
+  "main": "../node-request",
+  "browser": "../whatwg-fetch"
+}

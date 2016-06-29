@@ -1,6 +1,6 @@
 {
   "name": "hahoorequest",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A HTTP request abstract library",
   "main": "lib/index.js",
   "files": [
@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register test/*.js",
-    "build": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && cp -r src/fetch/ lib/fetch/",
+    "build": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && cp -r src/fetch lib/fetch && cp -r src/fetch-request lib/fetch-request",
     "prepublish": "npm run clean && npm run test && npm run build",
     "lint": "eslint src test"
   },
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "node-fetch": "^1.5.3",
+    "request": "^2.72.0",
     "whatwg-fetch": "^1.0.0"
   }
 }
