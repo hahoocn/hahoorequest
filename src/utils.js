@@ -7,7 +7,8 @@ export function makeOptions(url, options) {
     headers: undefined,
     type: 'json',
     credentials: undefined,
-    mode: undefined
+    mode: undefined,
+    crossOrigin: undefined,
   };
 
   let thisoptions = {};
