@@ -1,5 +1,5 @@
 # hahoorequest
-A HTTP request abstract library, use other http request libraries in one way. Isomorphic request to work in Node or in the browser.For example React isomorphism, the same code for the server and the browser.
+A HTTP request abstract library, use other http request libraries in one way. Isomorphic request to work in Node or in the browser. For example React isomorphism, the same code for the server and the browser.
 
 ## Why
 * Different libraries use different syntax, the replacement library will lead to a large number of changes
@@ -12,6 +12,7 @@ npm install hahoorequest --save
 ## Import library
 Select the library you want to use
 ### Browser & Server
+
 ##### Browser with fetch, Server with fetch
 ```
 import request from 'hahoorequest/lib/fetch';
@@ -20,12 +21,26 @@ import request from 'hahoorequest/lib/fetch';
 ```
 import request from 'hahoorequest/lib/fetch-request';
 ```
+##### Browser with reqwest, Server with fetch
+```
+import request from 'hahoorequest/lib/reqwest-fetch';
+```
+##### Browser with reqwest, Server with request
+```
+import request from 'hahoorequest/lib/reqwest-request';
+```
 ### Browser
+
 ##### [fetch](https://github.com/github/fetch)
 ```
 import request from 'hahoorequest/lib/whatwg-fetch';
 ```
+##### [reqwest](https://github.com/ded/reqwest)
+```
+import request from 'hahoorequest/lib/reqwest';
+```
 ### Server
+
 ##### [node-fetch](https://github.com/bitinn/node-fetch)
 ```
 import request from 'hahoorequest/lib/node-fetch';

@@ -1,6 +1,6 @@
 {
   "name": "hahoorequest",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A HTTP request abstract library, use other http request libraries in one way. Isomorphic request to work in Node or in the browser.",
   "main": "lib/index.js",
   "files": [
@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register test/*.js",
-    "build": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && cp -r src/fetch lib/fetch && cp -r src/fetch-request lib/fetch-request",
+    "build": "cross-env BABEL_ENV=commonjs babel src --out-dir lib && babel-node ./tools/copy.js",
     "prepublish": "npm run clean && npm run test && npm run build",
     "lint": "eslint src test"
   },
@@ -26,7 +26,8 @@
     "fetch",
     "isomorphic",
     "node fetch",
-    "whatwg fetch"
+    "whatwg fetch",
+    "reqwest"
   ],
   "author": "Ray Guo",
   "license": "MIT",
@@ -45,11 +46,13 @@
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-plugin-import": "^1.9.2",
     "mocha": "^2.5.3",
+    "ncp": "^2.0.0",
     "rimraf": "^2.5.2"
   },
   "dependencies": {
     "node-fetch": "^1.5.3",
     "request": "^2.72.0",
+    "reqwest": "^2.0.5",
     "whatwg-fetch": "^1.0.0"
   }
 }
