@@ -1,7 +1,7 @@
 {
   "name": "hahoorequest",
   "version": "0.3.0",
-  "description": "A HTTP request abstract library",
+  "description": "A HTTP request abstract library, use other http request libraries in one way. Isomorphic request to work in Node or in the browser.",
   "main": "lib/index.js",
   "files": [
     "lib",
@@ -23,7 +23,10 @@
     "request",
     "abstract",
     "superagent",
-    "fetch"
+    "fetch",
+    "isomorphic",
+    "node fetch",
+    "whatwg fetch"
   ],
   "author": "Ray Guo",
   "license": "MIT",
