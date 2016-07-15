@@ -17,6 +17,9 @@ function hahooRequestReqwest(url, options) {
       crossOrigin
     })
     .then((response) => {
+      if (req.request.status < 200 || req.request.status >= 300) {
+        reject();
+      }
       const res = {
         // headers: response.headers,
         status: req.request.status,

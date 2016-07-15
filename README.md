@@ -29,6 +29,18 @@ import request from 'hahoorequest/lib/reqwest-fetch';
 ```
 import request from 'hahoorequest/lib/reqwest-request';
 ```
+##### Browser with superagent, Server with superagent
+```
+import request from 'hahoorequest/lib/superagent';
+```
+##### Browser with superagent, Server with fetch
+```
+import request from 'hahoorequest/lib/superagent-fetch';
+```
+##### Browser with superagent, Server with request
+```
+import request from 'hahoorequest/lib/superagent-request';
+```
 ### Browser
 
 ##### [fetch](https://github.com/github/fetch)
@@ -38,6 +50,10 @@ import request from 'hahoorequest/lib/whatwg-fetch';
 ##### [reqwest](https://github.com/ded/reqwest)
 ```
 import request from 'hahoorequest/lib/reqwest';
+```
+##### [superagent](https://github.com/visionmedia/superagent)
+```
+import request from 'hahoorequest/lib/superagent';
 ```
 ### Server
 
