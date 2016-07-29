@@ -29,6 +29,18 @@ import request from 'hahoorequest/lib/reqwest-fetch';
 ```
 import request from 'hahoorequest/lib/reqwest-request';
 ```
+##### Browser with superagent, Server with superagent
+```
+import request from 'hahoorequest/lib/superagent';
+```
+##### Browser with superagent, Server with fetch
+```
+import request from 'hahoorequest/lib/superagent-fetch';
+```
+##### Browser with superagent, Server with request
+```
+import request from 'hahoorequest/lib/superagent-request';
+```
 ### Browser
 
 ##### [fetch](https://github.com/github/fetch)
@@ -38,6 +50,10 @@ import request from 'hahoorequest/lib/whatwg-fetch';
 ##### [reqwest](https://github.com/ded/reqwest)
 ```
 import request from 'hahoorequest/lib/reqwest';
+```
+##### [superagent](https://github.com/visionmedia/superagent)
+```
+import request from 'hahoorequest/lib/superagent';
 ```
 ### Server
 
@@ -65,9 +81,10 @@ request({
 * `url` a fully qualified uri
 * `method` http method (default: `GET`)
 * `headers` http headers
-* `data` entity body for `PATCH`, `POST` and `PUT` requests. Must be a query `String` or `JSON` object
+* `body` entity body for `PATCH`, `POST` and `PUT` requests. Must be a query `String` or `JSON` object
 * `type` a string enum. `html`, `xml`, `json`, `form`, `png`... (default: `json`)
 * `qs` object containing querystring values to be appended to the url
+* `credentials` Sending cookies. fetch set credentials option. if credentials is not undefined, reqwest and superagent will add `withCredentials = true`
 
 ## Response
 * `response.headers` http headers

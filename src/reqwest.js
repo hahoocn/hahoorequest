@@ -3,9 +3,16 @@ import { makeOptions, addQs } from './utils';
 
 function hahooRequestReqwest(url, options) {
   const opts = makeOptions(url, options);
-  const { method, body, qs, headers, type, crossOrigin } = opts;
+  const { method, body, qs, headers, type, credentials } = opts;
   let requestUrl = opts.url;
   requestUrl = addQs(requestUrl, qs);
+
+  let withCredentials = false;
+  let crossOrigin = false;
+  if (credentials) {
+    withCredentials = true;
+    crossOrigin = true;
+  }
 
   return new Promise((resolve, reject) => {
     const req = reqwest({
@@ -14,11 +21,14 @@ function hahooRequestReqwest(url, options) {
       data: body,
       headers,
       type,
-      crossOrigin
+      crossOrigin,
+      withCredentials
     })
     .then((response) => {
+      if (req.request.status < 200 || req.request.status >= 300) {
+        reject();
+      }
       const res = {
-        // headers: response.headers,
         status: req.request.status,
         body: response
       };
