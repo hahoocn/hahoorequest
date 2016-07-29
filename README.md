@@ -81,9 +81,10 @@ request({
 * `url` a fully qualified uri
 * `method` http method (default: `GET`)
 * `headers` http headers
-* `data` entity body for `PATCH`, `POST` and `PUT` requests. Must be a query `String` or `JSON` object
+* `body` entity body for `PATCH`, `POST` and `PUT` requests. Must be a query `String` or `JSON` object
 * `type` a string enum. `html`, `xml`, `json`, `form`, `png`... (default: `json`)
 * `qs` object containing querystring values to be appended to the url
+* `credentials` Sending cookies. fetch set credentials option. if credentials is not undefined, reqwest and superagent will add `withCredentials = true`
 
 ## Response
 * `response.headers` http headers
