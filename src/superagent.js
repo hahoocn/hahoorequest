@@ -3,7 +3,7 @@ import { makeOptions } from './utils';
 
 function hahooRequestSuperagent(url, options) {
   const opts = makeOptions(url, options);
-  const { method, body, qs, headers, type } = opts;
+  const { method, body, qs, headers, type, credentials } = opts;
 
   return new Promise((resolve, reject) => {
     const req = request(method, opts.url);
@@ -18,6 +18,9 @@ function hahooRequestSuperagent(url, options) {
     }
     if (type) {
       req.type(type);
+    }
+    if (credentials) {
+      req.withCredentials();
     }
     req.end((err, response) => {
       if (err) {

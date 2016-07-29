@@ -3,7 +3,7 @@ import { makeOptions, addQs, checkStatus } from './utils';
 
 function hahooRequestNodeFetch(url, options) {
   const opts = makeOptions(url, options);
-  const { method, credentials, qs, mode, type } = opts;
+  const { method, credentials, qs, type } = opts;
   let { body, headers } = opts;
   let requestUrl = opts.url;
   requestUrl = addQs(requestUrl, qs);
@@ -36,8 +36,7 @@ function hahooRequestNodeFetch(url, options) {
       method,
       headers,
       body,
-      credentials,
-      mode
+      credentials
     })
     .then(checkStatus)
     .then((response) => {

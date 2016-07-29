@@ -18,9 +18,7 @@ describe('utils', () => {
         'Content-Type': 'application/json'
       },
       type: 'json',
-      credentials: undefined,
-      mode: undefined,
-      crossOrigin: undefined
+      credentials: undefined
     };
     it('should return the right options object as expected by url and options', () => {
       expect(makeOptions('http://www.abc.com/', {
