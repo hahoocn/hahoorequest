@@ -11,7 +11,8 @@ function hahooRequestWhatwgFetch(url, options) {
   switch (type.toLowerCase()) {
     case 'json':
       body = JSON.stringify(body);
-      if (method.toLowerCase() === 'post') {
+      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
+      method.toLowerCase() === 'patch') {
         headers = Object.assign({}, headers, {
           Accept: 'application/json',
           'Content-Type': 'application/json'
@@ -22,7 +23,8 @@ function hahooRequestWhatwgFetch(url, options) {
       body = new FormData(body);
       break;
     default:
-      if (method.toLowerCase() === 'post') {
+      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
+      method.toLowerCase() === 'patch') {
         headers = Object.assign({}, headers, {
           Accept: 'application/json, text/plain, */*',
           'Content-Type': 'x-www-form-urlencoded'
