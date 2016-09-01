@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { makeOptions, addQs, checkStatus } from './utils';
+import { makeOptions, addQs } from './utils';
 
 function hahooRequestWhatwgFetch(url, options) {
   const opts = makeOptions(url, options);
@@ -40,43 +40,57 @@ function hahooRequestWhatwgFetch(url, options) {
       body,
       credentials
     })
-    .then(checkStatus)
     .then((response) => {
       res = {
-        headers: response.headers,
         status: response.status,
-        response: response.statusText
+        statusText: response.statusText
       };
-
-      let data = undefined;
-      switch (type.toLowerCase()) {
-        case 'html':
-        case 'text':
-          data = response.text();
-          break;
-        case 'json':
-          data = response.json();
-          break;
-        case 'form':
-          data = response.formData();
-          break;
-        case 'jpg':
-        case 'png':
-        case 'gif':
-        case 'img':
-          data = response.blob();
-          break;
-        default:
-          data = response.text();
-          break;
+      let data = {};
+      if (response.status !== 204) {
+        switch (type.toLowerCase()) {
+          case 'html':
+          case 'text':
+            data = response.text();
+            break;
+          case 'json':
+            data = response.json();
+            break;
+          case 'form':
+            data = response.formData();
+            break;
+          case 'jpg':
+          case 'png':
+          case 'gif':
+          case 'img':
+            data = response.blob();
+            break;
+          default:
+            data = response.text();
+            break;
+        }
       }
       return data;
     })
     .then((data) => {
-      res.body = data;
-      resolve(res);
+      if (res.status < 200 || res.status >= 300) {
+        let errors = {
+          errcode: res.status,
+          errmsg: ''
+        };
+        if (data && typeof data === 'object') {
+          errors = Object.assign({}, errors, data);
+        }
+        if (data && typeof data === 'string') {
+          errors = Object.assign({}, errors, { errmsg: data });
+        }
+        res = Object.assign({}, res, errors);
+        reject(res);
+      } else {
+        res.body = data;
+        resolve(res);
+      }
     })
-    .catch(err => reject(err));
+    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 
