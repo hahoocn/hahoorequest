@@ -20,6 +20,7 @@ function hahooRequestWhatwgFetch(url, options) {
       }
       break;
     case 'form':
+      /* global FormData:false */
       body = new FormData(body);
       break;
     default:
@@ -34,6 +35,7 @@ function hahooRequestWhatwgFetch(url, options) {
 
   return new Promise((resolve, reject) => {
     let res = {};
+    /* global fetch:false */
     fetch(requestUrl, {
       method,
       headers,

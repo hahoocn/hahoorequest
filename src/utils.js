@@ -33,17 +33,15 @@ export function addQs(url, qs) {
     if (queryString.length > 0) {
       if (url.split('?').length < 2) {
         queryString = queryString.substring(1);
-      } else {
-        if (url.split('?')[1].length === 0) {
-          queryString = queryString.substring(1);
-        }
+      } else if (url.split('?')[1].length === 0) {
+        queryString = queryString.substring(1);
       }
+    }
 
-      if (url.indexOf('?') === -1) {
-        newUrl = `${url}?${queryString}`;
-      } else {
-        newUrl = `${url}${queryString}`;
-      }
+    if (url.indexOf('?') === -1) {
+      newUrl = `${url}?${queryString}`;
+    } else {
+      newUrl = `${url}${queryString}`;
     }
   }
 

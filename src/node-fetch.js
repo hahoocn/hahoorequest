@@ -20,6 +20,7 @@ function hahooRequestNodeFetch(url, options) {
       }
       break;
     case 'form':
+      /* global FormData:false */
       body = new FormData(body);
       break;
     default:
@@ -72,13 +73,25 @@ function hahooRequestNodeFetch(url, options) {
       return data;
     })
     .then((data) => {
-      res.body = data;
       if (res.status < 200 || res.status >= 300) {
+        let errors = {
+          errcode: res.status,
+          errmsg: ''
+        };
+        if (data && typeof data === 'object') {
+          errors = Object.assign({}, errors, data);
+        }
+        if (data && typeof data === 'string') {
+          errors = Object.assign({}, errors, { errmsg: data });
+        }
+        res = Object.assign({}, res, errors);
         reject(res);
+      } else {
+        res.body = data;
+        resolve(res);
       }
-      resolve(res);
     })
-    .catch(err => reject(err));
+    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 
