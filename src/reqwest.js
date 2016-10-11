@@ -25,16 +25,30 @@ function hahooRequestReqwest(url, options) {
       withCredentials
     })
     .then((response) => {
-      if (req.request.status < 200 || req.request.status >= 300) {
-        reject();
-      }
-      const res = {
+      let res = {
         status: req.request.status,
+        statusText: '',
         body: response
       };
-      resolve(res);
+
+      if (req.request.status < 200 || req.request.status >= 300) {
+        let errors = {
+          errcode: req.request.status,
+          errmsg: ''
+        };
+        if (response && typeof response === 'object') {
+          errors = Object.assign({}, errors, response);
+        }
+        if (response && typeof response === 'string') {
+          errors = Object.assign({}, errors, { errmsg: response });
+        }
+        res = Object.assign({}, res, errors);
+        reject(res);
+      } else {
+        resolve(res);
+      }
     })
-    .catch(err => reject(err));
+    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 

@@ -29,17 +29,31 @@ function hahooRequestNodeRequest(url, options) {
     },
     (err, response, resbody) => {
       if (err) {
-        reject(new Error(err));
-      }
-      if (response.statusCode < 200 || response.statusCode >= 300) {
-        reject();
+        reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` });
       }
 
-      const res = {
+      let res = {
         headers: response.headers,
         status: response.statusCode,
+        statusText: '',
         body: resbody
       };
+
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        reject();
+        let errors = {
+          errcode: response.statusCode,
+          errmsg: ''
+        };
+        if (resbody && typeof resbody === 'object') {
+          errors = Object.assign({}, errors, resbody);
+        }
+        if (resbody && typeof resbody === 'string') {
+          errors = Object.assign({}, errors, { errmsg: resbody });
+        }
+        res = Object.assign({}, res, errors);
+        reject(res);
+      }
 
       resolve(res);
     });

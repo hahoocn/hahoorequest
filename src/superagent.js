@@ -24,13 +24,31 @@ function hahooRequestSuperagent(url, options) {
     }
     req.end((err, response) => {
       if (err) {
-        reject(new Error(err));
-      }
-      if (response.status < 200 || response.status >= 300) {
-        reject();
+        reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` });
       }
 
+      let res = {
+        status: response.status,
+        statusText: ''
+      };
+
       let resBody = response.text;
+
+      if (response.status < 200 || response.status >= 300) {
+        let errors = {
+          errcode: response.status,
+          errmsg: ''
+        };
+        if (resBody && typeof resBody === 'object') {
+          errors = Object.assign({}, errors, resBody);
+        }
+        if (resBody && typeof resBody === 'string') {
+          errors = Object.assign({}, errors, { errmsg: resBody });
+        }
+        res = Object.assign({}, res, errors);
+        reject(res);
+      }
+
       switch (type.toLowerCase()) {
         case 'json':
           resBody = JSON.parse(resBody);
@@ -38,9 +56,10 @@ function hahooRequestSuperagent(url, options) {
         default:
       }
 
-      const res = {
+      res = {
         headers: response.header,
         status: response.status,
+        statusText: '',
         body: resBody
       };
 

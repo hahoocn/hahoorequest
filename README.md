@@ -87,6 +87,9 @@ request({
 * `credentials` Sending cookies. fetch set credentials option. if credentials is not undefined, reqwest and superagent will add `withCredentials = true`
 
 ## Response
-* `response.headers` http headers
 * `response.body` Content of response
-* `response.status` http status
+* `response.status` http status code
+
+## Errors
+* `response.errcode` Code of errors
+* `response.errmsg` Content of errors
