@@ -18,6 +18,7 @@ describe('utils', () => {
         'Content-Type': 'application/json'
       },
       type: 'json',
+      contentType: 'application/json',
       crossOrigin: true,
       credentials: undefined
     };

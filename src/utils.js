@@ -6,6 +6,7 @@ export function makeOptions(url, options) {
     body: undefined,
     headers: undefined,
     type: 'json',
+    contentType: 'application/json',
     crossOrigin: true,
     credentials: undefined
   };
