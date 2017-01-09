@@ -3,26 +3,33 @@ import { makeOptions, addQs } from './utils';
 
 function hahooRequestReqwest(url, options) {
   const opts = makeOptions(url, options);
-  const { method, body, qs, headers, type, credentials } = opts;
+  const { method, body, qs, headers, type, credentials, contentType } = opts;
+  let { crossOrigin } = opts;
   let requestUrl = opts.url;
   requestUrl = addQs(requestUrl, qs);
 
   let withCredentials = false;
-  let crossOrigin = false;
   if (credentials) {
     withCredentials = true;
     crossOrigin = true;
+  }
+  let data;
+  if (contentType === 'application/json') {
+    data = JSON.stringify(body);
+  } else {
+    data = body;
   }
 
   return new Promise((resolve, reject) => {
     const req = reqwest({
       url: requestUrl,
       method,
-      data: body,
+      data,
       headers,
       type,
       crossOrigin,
-      withCredentials
+      withCredentials,
+      contentType
     })
     .then((response) => {
       let res = {
@@ -48,7 +55,30 @@ function hahooRequestReqwest(url, options) {
         resolve(res);
       }
     })
-    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
+    .catch((err) => {
+      if (typeof err === 'object') {
+        let errcode = err.status || -1;
+        let errmsg = err.statusText || '';
+        if (err.response) {
+          const response = JSON.parse(err.response);
+          if (typeof response === 'object') {
+            if (response.errcode) errcode = response.errcode;
+            if (response.errmsg) errmsg = response.errmsg;
+          } else {
+            errmsg = response;
+          }
+        }
+        const res = {
+          status: err.status || 0,
+          statusText: err.statusText || '',
+          errcode,
+          errmsg
+        };
+        reject(res);
+      } else {
+        reject({ status: 0, statusText: '', errcode: -1, errmsg: err });
+      }
+    });
   });
 }
 

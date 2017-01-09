@@ -18,6 +18,8 @@ describe('utils', () => {
         'Content-Type': 'application/json'
       },
       type: 'json',
+      contentType: 'application/json',
+      crossOrigin: true,
       credentials: undefined
     };
     it('should return the right options object as expected by url and options', () => {
