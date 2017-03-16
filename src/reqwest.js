@@ -14,7 +14,7 @@ function hahooRequestReqwest(url, options) {
     crossOrigin = true;
   }
   let data;
-  if (contentType === 'application/json') {
+  if (body && contentType === 'application/json') {
     data = JSON.stringify(body);
   } else {
     data = body;
