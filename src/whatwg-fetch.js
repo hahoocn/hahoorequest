@@ -41,8 +41,7 @@ function hahooRequestWhatwgFetch(url, options) {
       headers,
       body,
       credentials
-    })
-    .then((response) => {
+    }).then((response) => {
       res = {
         status: response.status,
         statusText: response.statusText
@@ -72,8 +71,7 @@ function hahooRequestWhatwgFetch(url, options) {
         }
       }
       return data;
-    })
-    .then((data) => {
+    }).then((data) => {
       if (res.status < 200 || res.status >= 300) {
         let errors = {
           errcode: res.status,
@@ -91,8 +89,7 @@ function hahooRequestWhatwgFetch(url, options) {
         res.body = data;
         resolve(res);
       }
-    })
-    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
+    }).catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 
