@@ -14,7 +14,7 @@ function hahooRequestReqwest(url, options) {
     crossOrigin = true;
   }
   let data;
-  if (contentType === 'application/json') {
+  if (body && contentType === 'application/json') {
     data = JSON.stringify(body);
   } else {
     data = body;
@@ -30,8 +30,7 @@ function hahooRequestReqwest(url, options) {
       crossOrigin,
       withCredentials,
       contentType
-    })
-    .then((response) => {
+    }).then((response) => {
       let res = {
         status: req.request.status,
         statusText: '',
@@ -54,16 +53,23 @@ function hahooRequestReqwest(url, options) {
       } else {
         resolve(res);
       }
-    })
-    .catch((err) => {
+    }).catch((err) => {
       if (typeof err === 'object') {
         let errcode = err.status || -1;
         let errmsg = err.statusText || '';
+        let oth = {};
         if (err.response) {
           const response = JSON.parse(err.response);
           if (typeof response === 'object') {
-            if (response.errcode) errcode = response.errcode;
-            if (response.errmsg) errmsg = response.errmsg;
+            if (response.errcode) {
+              errcode = response.errcode;
+              delete response.errcode;
+            }
+            if (response.errmsg) {
+              errmsg = response.errmsg;
+              delete response.errmsg;
+            }
+            oth = response;
           } else {
             errmsg = response;
           }
@@ -72,7 +78,8 @@ function hahooRequestReqwest(url, options) {
           status: err.status || 0,
           statusText: err.statusText || '',
           errcode,
-          errmsg
+          errmsg,
+          ...oth
         };
         reject(res);
       } else {

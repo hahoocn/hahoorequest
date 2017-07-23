@@ -20,8 +20,6 @@ function hahooRequestWhatwgFetch(url, options) {
       }
       break;
     case 'form':
-      /* global FormData:false */
-      body = new FormData(body);
       break;
     default:
       if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
@@ -41,8 +39,7 @@ function hahooRequestWhatwgFetch(url, options) {
       headers,
       body,
       credentials
-    })
-    .then((response) => {
+    }).then((response) => {
       res = {
         status: response.status,
         statusText: response.statusText
@@ -58,7 +55,7 @@ function hahooRequestWhatwgFetch(url, options) {
             data = response.json();
             break;
           case 'form':
-            data = response.formData();
+            data = response.json();
             break;
           case 'jpg':
           case 'png':
@@ -72,8 +69,7 @@ function hahooRequestWhatwgFetch(url, options) {
         }
       }
       return data;
-    })
-    .then((data) => {
+    }).then((data) => {
       if (res.status < 200 || res.status >= 300) {
         let errors = {
           errcode: res.status,
@@ -91,8 +87,7 @@ function hahooRequestWhatwgFetch(url, options) {
         res.body = data;
         resolve(res);
       }
-    })
-    .catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
+    }).catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 

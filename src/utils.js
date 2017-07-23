@@ -29,9 +29,9 @@ export function addQs(url, qs) {
   let queryString = '';
   let newUrl = url;
   if (qs && typeof qs === 'object') {
-    for (const k of Object.keys(qs)) {
+    Object.keys(qs).forEach((k) => {
       queryString += `&${k}=${qs[k]}`;
-    }
+    });
     if (queryString.length > 0) {
       if (url.split('?').length < 2) {
         queryString = queryString.substring(1);
@@ -48,13 +48,4 @@ export function addQs(url, qs) {
   }
 
   return newUrl;
-}
-
-export function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
 }
