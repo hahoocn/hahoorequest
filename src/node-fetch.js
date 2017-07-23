@@ -1,6 +1,16 @@
 import fetch from 'node-fetch';
 import { makeOptions, addQs } from './utils';
 
+function parseJSON(response) {
+  return response.text().then((text) => {
+    let rtn = {};
+    if (text) {
+      rtn = JSON.parse(text);
+    }
+    return rtn;
+  });
+}
+
 function hahooRequestNodeFetch(url, options) {
   const opts = makeOptions(url, options);
   const { method, credentials, qs, type } = opts;
@@ -20,8 +30,6 @@ function hahooRequestNodeFetch(url, options) {
       }
       break;
     case 'form':
-      /* global FormData:false */
-      body = new FormData(body);
       break;
     default:
       if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
@@ -53,10 +61,10 @@ function hahooRequestNodeFetch(url, options) {
             data = response.text();
             break;
           case 'json':
-            data = response.json();
+            data = parseJSON(response);
             break;
           case 'form':
-            data = response.formData();
+            data = parseJSON(response);
             break;
           case 'jpg':
           case 'png':
