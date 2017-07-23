@@ -1,6 +1,16 @@
 import 'whatwg-fetch';
 import { makeOptions, addQs } from './utils';
 
+function parseJSON(response) {
+  return response.text().then((text) => {
+    let rtn = {};
+    if (text) {
+      rtn = JSON.parse(text);
+    }
+    return rtn;
+  });
+}
+
 function hahooRequestWhatwgFetch(url, options) {
   const opts = makeOptions(url, options);
   const { method, credentials, qs, type } = opts;
@@ -52,10 +62,10 @@ function hahooRequestWhatwgFetch(url, options) {
             data = response.text();
             break;
           case 'json':
-            data = response.json();
+            data = parseJSON(response);
             break;
           case 'form':
-            data = response.json();
+            data = parseJSON(response);
             break;
           case 'jpg':
           case 'png':
