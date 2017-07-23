@@ -1,6 +1,6 @@
 {
   "name": "hahoorequest",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "A HTTP request abstract library, use other http request libraries in one way. Isomorphic request to work in Node or in the browser.",
   "main": "lib/index.js",
   "files": [
