@@ -20,8 +20,6 @@ function hahooRequestWhatwgFetch(url, options) {
       }
       break;
     case 'form':
-      /* global FormData:false */
-      body = new FormData(body);
       break;
     default:
       if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
@@ -57,7 +55,7 @@ function hahooRequestWhatwgFetch(url, options) {
             data = response.json();
             break;
           case 'form':
-            data = response.formData();
+            data = response.json();
             break;
           case 'jpg':
           case 'png':
