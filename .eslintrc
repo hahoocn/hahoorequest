@@ -9,6 +9,8 @@
         "comma-dangle": ["warn", "only-multiline"],
         "indent": [2, 2, {"SwitchCase": 1}],
         "import/no-extraneous-dependencies": 0,
+        "object-curly-newline": 0,
+        "prefer-promise-reject-errors": 0
     },
     "globals": {
       "expect": true

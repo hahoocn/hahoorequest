@@ -13,7 +13,7 @@ function parseJSON(response) {
 
 function hahooRequestWhatwgFetch(url, options) {
   const opts = makeOptions(url, options);
-  const { method, credentials, qs, type } = opts;
+  const { method, credentials, qs, type, mode } = opts;
   let { body, headers } = opts;
   let requestUrl = opts.url;
   requestUrl = addQs(requestUrl, qs);
@@ -48,7 +48,8 @@ function hahooRequestWhatwgFetch(url, options) {
       method,
       headers,
       body,
-      credentials
+      credentials,
+      mode
     }).then((response) => {
       res = {
         status: response.status,
