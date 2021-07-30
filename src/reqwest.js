@@ -43,12 +43,12 @@ function hahooRequestReqwest(url, options) {
           errmsg: ''
         };
         if (response && typeof response === 'object') {
-          errors = Object.assign({}, errors, response);
+          errors = { ...errors, ...response };
         }
         if (response && typeof response === 'string') {
-          errors = Object.assign({}, errors, { errmsg: response });
+          errors = { ...errors, errmsg: response };
         }
-        res = Object.assign({}, res, errors);
+        res = { ...res, ...errors };
         reject(res);
       } else {
         resolve(res);

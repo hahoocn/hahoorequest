@@ -40,12 +40,12 @@ function hahooRequestSuperagent(url, options) {
           errmsg: ''
         };
         if (resBody && typeof resBody === 'object') {
-          errors = Object.assign({}, errors, resBody);
+          errors = { ...errors, ...resBody };
         }
         if (resBody && typeof resBody === 'string') {
-          errors = Object.assign({}, errors, { errmsg: resBody });
+          errors = { ...errors, errmsg: resBody };
         }
-        res = Object.assign({}, res, errors);
+        res = { ...res, ...errors };
         reject(res);
       }
 

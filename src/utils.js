@@ -20,7 +20,7 @@ export function makeOptions(url, options) {
       thisoptions.url = url;
     }
   }
-  thisoptions = Object.assign({}, defaultoptions, thisoptions);
+  thisoptions = { ...defaultoptions, ...thisoptions };
 
   return thisoptions;
 }

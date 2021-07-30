@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import ncp from 'ncp';
 
 ncp('src/fetch', 'lib/fetch');

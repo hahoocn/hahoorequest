@@ -1,3 +1,6 @@
 {
-  "presets": ["env", "stage-0"]
+  "plugins": [
+    "@babel/plugin-transform-strict-mode",
+    "@babel/plugin-transform-modules-commonjs"
+  ],
 }
