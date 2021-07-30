@@ -21,23 +21,17 @@ function hahooRequestWhatwgFetch(url, options) {
   switch (type.toLowerCase()) {
     case 'json':
       body = JSON.stringify(body);
-      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
-      method.toLowerCase() === 'patch') {
-        headers = Object.assign({}, headers, {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        });
+      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put'
+      || method.toLowerCase() === 'patch') {
+        headers = { ...headers, Accept: 'application/json', 'Content-Type': 'application/json' };
       }
       break;
     case 'form':
       break;
     default:
-      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put' ||
-      method.toLowerCase() === 'patch') {
-        headers = Object.assign({}, headers, {
-          Accept: 'application/json, text/plain, */*',
-          'Content-Type': 'x-www-form-urlencoded'
-        });
+      if (method.toLowerCase() === 'post' || method.toLowerCase() === 'put'
+      || method.toLowerCase() === 'patch') {
+        headers = { ...headers, Accept: 'application/json, text/plain, */*', 'Content-Type': 'x-www-form-urlencoded' };
       }
   }
 
@@ -72,6 +66,7 @@ function hahooRequestWhatwgFetch(url, options) {
           case 'png':
           case 'gif':
           case 'img':
+          case 'blob':
             data = response.blob();
             break;
           default:
@@ -87,18 +82,18 @@ function hahooRequestWhatwgFetch(url, options) {
           errmsg: ''
         };
         if (data && typeof data === 'object') {
-          errors = Object.assign({}, errors, data);
+          errors = { ...errors, ...data };
         }
         if (data && typeof data === 'string') {
-          errors = Object.assign({}, errors, { errmsg: data });
+          errors = { ...errors, errmsg: data };
         }
-        res = Object.assign({}, res, errors);
+        res = { ...res, ...errors };
         reject(res);
       } else {
         res.body = data;
         resolve(res);
       }
-    }).catch(err => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
+    }).catch((err) => reject({ status: 0, statusText: '', errcode: -1, errmsg: `${err}` }));
   });
 }
 

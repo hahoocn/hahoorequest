@@ -46,12 +46,12 @@ function hahooRequestNodeRequest(url, options) {
           errmsg: ''
         };
         if (resbody && typeof resbody === 'object') {
-          errors = Object.assign({}, errors, resbody);
+          errors = { ...errors, ...resbody };
         }
         if (resbody && typeof resbody === 'string') {
-          errors = Object.assign({}, errors, { errmsg: resbody });
+          errors = { ...errors, errmsg: resbody };
         }
-        res = Object.assign({}, res, errors);
+        res = { ...res, ...errors };
         reject(res);
       }
 
